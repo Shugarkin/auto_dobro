@@ -14,6 +14,7 @@ import pet.project.shugarKing.users.model.User;
 @Builder
 @Entity
 @NoArgsConstructor
+@Table(name = "cars")
 public class Car {
 
     @Id

@@ -29,11 +29,15 @@ public class User {
     @Column(name = "last_Name")
     private String lastName;
 
+    @Column(name = "email")
+    private String email;
 
-    public User(long id, String nickName, String firstName, String lastName) {
+
+    public User(long id, String nickName, String firstName, String lastName, String email) {
         this.id = id;
         this.nickName = nickName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
     }
 }

@@ -3,9 +3,11 @@ create table if not exists users (
     nick_name VARCHAR(50) not null,
     first_name VARCHAR(25) not null,
     last_name VARCHAR(25) not null,
+    email VARCHAR(50) not null,
 
     constraint pk_users primary key (id),
-    constraint uniq_nick_name unique (nick_name)
+    constraint uniq_nick_name unique (nick_name),
+    constraint uniq_email unique (email)
 );
 
 create table if not exists cars (
@@ -13,7 +15,8 @@ create table if not exists cars (
     car_region int not null,
     user_id BIGINT not null,
 
-    constraint fk_cars_users foreign key (user_id) references users (id) on delete cascade
+    constraint fk_cars_users foreign key (user_id) references users (id) on delete cascade,
+    constraint uniq_car_number unique (car_number)
 );
 
 -- create table if not exists malfunctions (
