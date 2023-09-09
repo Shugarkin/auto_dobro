@@ -3,10 +3,12 @@ package pet.project.shugarKing.users.controller;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.sql.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pet.project.shugarKing.users.dto.NewUserDto;
+import pet.project.shugarKing.users.dto.UpdateUserDto;
 import pet.project.shugarKing.users.dto.UserDto;
 import pet.project.shugarKing.users.mapper.UserMapper;
 import pet.project.shugarKing.users.model.User;
@@ -49,7 +51,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public UserDto putUserById(@PathVariable @Positive long userId, @RequestBody @Valid NewUserDto user) {
+    public UserDto putUserById(@PathVariable @Positive long userId, @RequestBody @Valid UpdateUserDto user) {
         User newUser = service.putUserById(userId, UserMapper.toUser(user));
         return UserMapper.toUserDto(newUser);
     }

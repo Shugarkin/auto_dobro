@@ -2,6 +2,7 @@ package pet.project.shugarKing.users.mapper;
 
 import lombok.experimental.UtilityClass;
 import pet.project.shugarKing.users.dto.NewUserDto;
+import pet.project.shugarKing.users.dto.UpdateUserDto;
 import pet.project.shugarKing.users.dto.UserDto;
 import pet.project.shugarKing.users.model.User;
 
@@ -27,6 +28,14 @@ public class UserMapper {
     public User toUser(NewUserDto newUserDto) {
         return User.builder()
                 .email(newUserDto.getEmail())
+                .firstName(newUserDto.getFirstName())
+                .lastName(newUserDto.getLastName())
+                .nickName(newUserDto.getNickName())
+                .build();
+    }
+
+    public User toUser(UpdateUserDto newUserDto) {
+        return User.builder()
                 .firstName(newUserDto.getFirstName())
                 .lastName(newUserDto.getLastName())
                 .nickName(newUserDto.getNickName())

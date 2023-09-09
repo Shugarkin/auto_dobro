@@ -1,20 +1,54 @@
 package pet.project.shugarKing.malfunctions.model;
 
+import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import pet.project.shugarKing.car.model.Car;
+import pet.project.shugarKing.malfunctions.type.AllMalfunction;
+import pet.project.shugarKing.malfunctions.type.MalfunctionType;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 //неисправности машины
+
+@Getter
+@Setter
+@Entity
+@Builder
+@NoArgsConstructor
+@Table(name = "malfunctions")
 public class Malfunctions {
 
-    //колеса
-    List<WheelFailures> wheels;
+    @Id
+    @Column(name = "id")
+    private long id;
 
-    //световые приборы
-    List<LightingFixtureMalfunctions> lightingFixtures;
+    //тип неисправности
+    @Column(name = "type_malfunctions")
+    @Enumerated(EnumType.STRING)
+    private MalfunctionType type;
 
-    //двери
-    List<DoorMalfunctions> doors;
+    //дата
+    @Column(name = "create_on")
+    private LocalDateTime createOn;
 
-    //днище
-    List<BottomMalfunctions> bottom;
+    //что именно сломалось
+    @Column(name = "malfunctions")
+    private AllMalfunction malfunction;
 
+    //машина у которой поломка
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
+
+    public Malfunctions(long id, MalfunctionType type, LocalDateTime createOn, AllMalfunction malfunction, Car car) {
+        this.id = id;
+        this.type = type;
+        this.createOn = createOn;
+        this.malfunction = malfunction;
+        this.car = car;
+    }
 }

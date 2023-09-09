@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pet.project.shugarKing.car.dto.CarDto;
+import pet.project.shugarKing.car.dto.NewCarDto;
+import pet.project.shugarKing.car.mapper.CarMapper;
 import pet.project.shugarKing.car.model.Car;
 import pet.project.shugarKing.car.service.CarService;
 
@@ -19,14 +22,26 @@ public class CarController {
 
     @PostMapping("/cars")
     @ResponseStatus(HttpStatus.CREATED)
-    public Car postCar(@PathVariable long userId, @RequestBody Car car) {
-        Car newCar = service.postCar(userId, car);
-        return newCar;
+    public CarDto postCar(@PathVariable long userId, @RequestBody NewCarDto car) {
+        Car newCar = service.postCar(userId, CarMapper.toCar(car));
+        return CarMapper.toCarDto(newCar);
     }
 
     @GetMapping("/cars")
-    public List<Car> getCarsFromUserId(@PathVariable long userId) {
+    public List<CarDto> getCarsFromUserId(@PathVariable long userId) {
         List<Car> list = service.getCarsFromUserId(userId);
-        return list;
+        return CarMapper.toListCarDto(list);
+    }
+
+    @GetMapping("/cars/{carNumber}")
+    public CarDto getCarById(@PathVariable long userId, @PathVariable String carNumber) {
+        Car car = service.getCarById(userId, carNumber);
+        return CarMapper.toCarDto(car);
+    }
+
+    @DeleteMapping("/cars/{carNumber}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCar(@PathVariable long userId, @PathVariable String carNumber) {
+        service.deleteCar(userId, carNumber);
     }
 }
