@@ -23,6 +23,7 @@ import java.util.List;
 public class Malfunctions {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
@@ -44,11 +45,16 @@ public class Malfunctions {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    public Malfunctions(long id, MalfunctionType type, LocalDateTime createOn, AllMalfunction malfunction, Car car) {
+    @Column(name = "helper")
+    private long helperId;
+
+
+    public Malfunctions(long id, MalfunctionType type, LocalDateTime createOn, AllMalfunction malfunction, Car car, long helperId) {
         this.id = id;
         this.type = type;
         this.createOn = createOn;
         this.malfunction = malfunction;
         this.car = car;
+        this.helperId = helperId;
     }
 }

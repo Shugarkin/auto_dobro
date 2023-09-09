@@ -10,6 +10,8 @@ import lombok.Data;
 @Builder
 public class NewUserDto {
 
+    //добавить группы. updateuserdto не нужен. просто добавь группы
+
     @NotBlank
     @Size(min = 4, max = 50)
     private String nickName;

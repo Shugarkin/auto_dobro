@@ -25,6 +25,7 @@ create table if not exists malfunctions (
     malfunctions VARCHAR(50) not null,
     create_on TIMESTAMP WITHOUT TIME ZONE not null,
     car_id BIGINT not null,
+    helper BIGINT not null,
 
     constraint pk_malfuntion primary key (id),
     constraint fk_malfunction_car foreign key (car_id) references cars (id) on delete cascade

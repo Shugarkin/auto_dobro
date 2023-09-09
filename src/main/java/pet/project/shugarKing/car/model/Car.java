@@ -19,6 +19,7 @@ import pet.project.shugarKing.users.model.User;
 public class Car {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 

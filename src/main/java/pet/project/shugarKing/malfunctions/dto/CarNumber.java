@@ -1,4 +1,4 @@
-package pet.project.shugarKing.car.dto;
+package pet.project.shugarKing.malfunctions.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -7,8 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class NewCarDto {
-
+public class CarNumber {
 
     //написать аннотацию для валидации номера
 

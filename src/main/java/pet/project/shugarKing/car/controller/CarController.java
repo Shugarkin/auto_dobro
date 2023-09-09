@@ -1,5 +1,6 @@
 package pet.project.shugarKing.car.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +23,7 @@ public class CarController {
 
     @PostMapping("/cars")
     @ResponseStatus(HttpStatus.CREATED)
-    public CarDto postCar(@PathVariable long userId, @RequestBody NewCarDto car) {
+    public CarDto postCar(@PathVariable long userId, @RequestBody @Valid NewCarDto car) {
         Car newCar = service.postCar(userId, CarMapper.toCar(car));
         return CarMapper.toCarDto(newCar);
     }
