@@ -1,6 +1,9 @@
 package pet.project.shugarKing.malfunctions.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pet.project.shugarKing.car.dao.CarRepository;
@@ -37,7 +40,9 @@ public class MalfunctionServiceImpl implements MalfunctionService {
 
         //надо добавить:
         //ограничение на количество добавляемых несправностей одного типа в день(что бы не надоедать 1001 сообщением)
+        //boolean answer = repository.existsAnswer();
         //функциональность запрещающую отправлять неисправности указанные пользователем(он и так знает что сломано и не надо доставать)
+
 
 
         malfunction.setCreateOn(LocalDateTime.now());
@@ -60,10 +65,28 @@ public class MalfunctionServiceImpl implements MalfunctionService {
     @Override
     public List<Malfunctions> getAllMalfunction(long userId) {
 
-        //добавить сортировку по времени
+        Pageable parameter = PageRequest.of(0, 10, Sort.by("createOn").ascending());
 
-        List<Malfunctions> list = repository.findAllByCarUserId(userId);
+        List<Malfunctions> malfunctionsList = repository.findAllByCarUserId(userId, parameter);
 
-        return list;
+        return malfunctionsList;
+    }
+
+    @Transactional
+    @Override
+    public String deleteMalfunction(long userId, long malId) {
+        Malfunctions mal = repository.findById(malId).orElseThrow(() -> new NotFoundException("Неисправность не найдена"));
+        if (mal.getCar().getUser().getId() != userId)
+            throw new ConflictException("Вы не можете удалять чужие неисправности");
+
+        repository.delete(mal);
+        return "Неисправность с id= " + malId + " удалена.";
+    }
+
+    @Transactional
+    @Override
+    public String deleteAllMalfunctions(long userId) {
+        repository.deleteAllByCarUserId(userId);
+        return "Все неисправности пользователя с id=" + userId + " удаленны.";
     }
 }

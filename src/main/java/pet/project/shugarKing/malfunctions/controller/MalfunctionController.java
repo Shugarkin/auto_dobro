@@ -40,4 +40,14 @@ public class MalfunctionController {
         List<Malfunctions> list = service.getAllMalfunction(userId);
         return MalfunctionMapper.toListNewMalfunction(list);
     }
+
+    @DeleteMapping("/{malId}")
+    public String deleteMalfunction(@PathVariable long userId, @PathVariable long malId) {
+        return service.deleteMalfunction(userId, malId);
+    }
+
+    @DeleteMapping("/all")
+    public String deleteAllMalfunctions(@PathVariable long userId) {
+        return service.deleteAllMalfunctions(userId);
+    }
 }

@@ -11,4 +11,8 @@ public interface MalfunctionService {
     Malfunctions getMalfunction(long userId, long malId);
 
     List<Malfunctions> getAllMalfunction(long userId);
+
+    String deleteMalfunction(long userId, long malId);
+
+    String deleteAllMalfunctions(long userId);
 }
