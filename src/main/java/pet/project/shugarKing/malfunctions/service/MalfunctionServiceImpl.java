@@ -38,17 +38,11 @@ public class MalfunctionServiceImpl implements MalfunctionService {
         if (!userRepository.existsById(userId) || car.getUser().getId() == userId)
             throw new ConflictException("Вы или не сущесвуете в БД или отправляете запрос о неисправности сами себе");
 
-        //надо добавить:
-        //ограничение на количество добавляемых несправностей одного типа в день(что бы не надоедать 1001 сообщением)
-        //boolean answer = repository.existsAnswer();
-        //функциональность запрещающую отправлять неисправности указанные пользователем(он и так знает что сломано и не надо доставать)
-
-
-
         malfunction.setCreateOn(LocalDateTime.now());
         malfunction.setCar(car);
         malfunction.setHelperId(userId);
-        return repository.save(malfunction);
+
+        return check(malfunction);
     }
 
     @Override
@@ -80,13 +74,32 @@ public class MalfunctionServiceImpl implements MalfunctionService {
             throw new ConflictException("Вы не можете удалять чужие неисправности");
 
         repository.delete(mal);
-        return "Неисправность с id= " + malId + " удалена.";
+        return "Неисправность с id = " + malId + " удалена.";
     }
 
     @Transactional
     @Override
     public String deleteAllMalfunctions(long userId) {
         repository.deleteAllByCarUserId(userId);
-        return "Все неисправности пользователя с id=" + userId + " удаленны.";
+        return "Все неисправности пользователя с id = " + userId + " удаленны.";
+    }
+
+    //проверка на однотипные сообщения и защита от закликивания
+    private Malfunctions check(Malfunctions malfunctions) {
+
+        Malfunctions answer = repository.existsUser(malfunctions.getHelperId());
+
+        if (answer == null) {
+
+            List<Malfunctions> malfunctionsList = repository.existsAnswer(malfunctions.getType(), malfunctions.getCar().getCarNumber(), malfunctions.getCar().getCarRegion());
+
+            if (malfunctionsList.size() > 3) {
+                return malfunctions;
+            } else {
+                return repository.save(malfunctions);
+            }
+        } else {
+            return malfunctions;
+        }
     }
 }
