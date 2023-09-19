@@ -87,10 +87,16 @@ public class MalfunctionServiceImpl implements MalfunctionService {
     //проверка на однотипные сообщения и защита от закликивания
     private Malfunctions check(Malfunctions malfunctions) {
 
-        Malfunctions answer = repository.existsUser(malfunctions.getHelperId());
+//        Malfunctions answer = repository.existsUser(malfunctions.getHelperId());
 
-        if (answer == null) {
 
+
+
+        //слишком много запросов для одного метода создания. надо что-то поменять!!!!!!!!!!!!!!!!!!!!!!!!!
+        boolean answer = repository.existsUser(malfunctions.getHelperId());
+
+//        if (answer == null) {
+        if (answer) {
             List<Malfunctions> malfunctionsList = repository.existsAnswer(malfunctions.getType(), malfunctions.getCar().getCarNumber(), malfunctions.getCar().getCarRegion());
 
             if (malfunctionsList.size() > 3) {

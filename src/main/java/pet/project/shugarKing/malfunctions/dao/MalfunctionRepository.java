@@ -21,9 +21,15 @@ public interface MalfunctionRepository extends JpaRepository<Malfunctions, Long>
             "and mal.car.carRegion = ?3 " )
     List<Malfunctions> existsAnswer(MalfunctionType type, String carNumber, int carRegion);
 
-    @Query("select mal " +
-            "from Malfunctions mal " +
-            "where mal.createOn > (current_timestamp() - 1) " +
-            "and mal.helperId = ?1 ")
-    Malfunctions existsUser(long helperId);
+//    @Query("select mal " +
+//            "from Malfunctions mal " +
+//            "where mal.createOn > (current_timestamp() - 1) " +
+//            "and mal.helperId = ?1 ")
+//    Malfunctions existsUser(long helperId);
+
+    @Query(value = "select count(*) " +
+            "from malfunctions mal " +
+            "where mal.create_on > (current_timestamp() - 1) " +
+            "and mal.helper = ?1 ", nativeQuery = true)
+    boolean existsUser(long helperId);
 }
