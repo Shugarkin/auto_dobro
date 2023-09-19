@@ -1,6 +1,7 @@
 package pet.project.shugarKing.malfunctions.mapper;
 
 import lombok.experimental.UtilityClass;
+import pet.project.shugarKing.malfunctions.dto.MalfunctionResponseDto;
 import pet.project.shugarKing.malfunctions.dto.NewMalfunction;
 import pet.project.shugarKing.malfunctions.model.Malfunctions;
 
@@ -17,14 +18,15 @@ public class MalfunctionMapper {
                 .build();
     }
 
-    public NewMalfunction toNewMalfunction(Malfunctions malfunctions) {
-        return NewMalfunction.builder()
+    public MalfunctionResponseDto toMalfunctionResponseDto(Malfunctions malfunctions) {
+        return  MalfunctionResponseDto.builder()
+                .dateTime(malfunctions.getCreateOn())
                 .malfunction(malfunctions.getMalfunction())
                 .type(malfunctions.getType())
                 .build();
     }
 
-    public List<NewMalfunction> toListNewMalfunction(List<Malfunctions> list) {
-        return list.stream().map(MalfunctionMapper::toNewMalfunction).collect(Collectors.toList());
+    public List<MalfunctionResponseDto> toListMalfunctionResponseDto(List<Malfunctions> list) {
+        return list.stream().map(MalfunctionMapper::toMalfunctionResponseDto).collect(Collectors.toList());
     }
 }

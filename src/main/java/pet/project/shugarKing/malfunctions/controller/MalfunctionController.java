@@ -3,6 +3,7 @@ package pet.project.shugarKing.malfunctions.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pet.project.shugarKing.malfunctions.dto.MalfunctionResponseDto;
 import pet.project.shugarKing.malfunctions.dto.NewMalfunction;
 import pet.project.shugarKing.malfunctions.dto.NewMalfunctionDto;
 import pet.project.shugarKing.malfunctions.mapper.MalfunctionMapper;
@@ -20,25 +21,22 @@ public class MalfunctionController {
     public final MalfunctionService service;
 
     @PostMapping
-    public Malfunctions createMalfunction(@PathVariable long userId, @RequestBody NewMalfunctionDto newMalfunctionDto) {
+    public MalfunctionResponseDto createMalfunction(@PathVariable long userId, @RequestBody NewMalfunctionDto newMalfunctionDto) {
         Malfunctions malfunctions = service.createMalfunction(userId, newMalfunctionDto.getCarNumber(),
                 MalfunctionMapper.toMalfunction(newMalfunctionDto.getMal()));
-        return malfunctions;
+        return MalfunctionMapper.toMalfunctionResponseDto(malfunctions);
     }
 
-
-    //кто может смотреть ее?  какую инфу может получить?
     @GetMapping("/{malId}")
-    public NewMalfunction getMalfunction(@PathVariable long userId, @PathVariable long malId) {
+    public MalfunctionResponseDto getMalfunction(@PathVariable long userId, @PathVariable long malId) {
         Malfunctions malfunctions = service.getMalfunction(userId, malId);
-        return MalfunctionMapper.toNewMalfunction(malfunctions);
+        return MalfunctionMapper.toMalfunctionResponseDto(malfunctions);
     }
 
-    //нужно ли время при получении подборки? авторегистратор + время = конфликт?
     @GetMapping("/all")
-    public List<NewMalfunction> getAllMalfunction(@PathVariable long userId) {
+    public List<MalfunctionResponseDto> getAllMalfunction(@PathVariable long userId) {
         List<Malfunctions> list = service.getAllMalfunction(userId);
-        return MalfunctionMapper.toListNewMalfunction(list);
+        return MalfunctionMapper.toListMalfunctionResponseDto(list);
     }
 
     @DeleteMapping("/{malId}")
