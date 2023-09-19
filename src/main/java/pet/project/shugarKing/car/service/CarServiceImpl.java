@@ -31,6 +31,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> getCarsFromUserId(long userId) {
+        //проверить есть ли пользователь вообще
         List<Car> list = repository.findAllByUserId(userId);
         return list;
     }

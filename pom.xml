@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pet.project</groupId>
-	<artifactId>pomogator_2000</artifactId>
+	<artifactId>auto_dobro</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>shugarKing</name>
 	<description>First pet project</description>
