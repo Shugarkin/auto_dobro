@@ -86,20 +86,12 @@ public class MalfunctionServiceImpl implements MalfunctionService {
 
     //проверка на однотипные сообщения и защита от закликивания
     private Malfunctions check(Malfunctions malfunctions) {
-
-//        Malfunctions answer = repository.existsUser(malfunctions.getHelperId());
-
-
-
-
-        //слишком много запросов для одного метода создания. надо что-то поменять!!!!!!!!!!!!!!!!!!!!!!!!!
-        boolean answer = repository.existsUser(malfunctions.getHelperId());
-
-//        if (answer == null) {
-        if (answer) {
-            List<Malfunctions> malfunctionsList = repository.existsAnswer(malfunctions.getType(), malfunctions.getCar().getCarNumber(), malfunctions.getCar().getCarRegion());
-
-            if (malfunctionsList.size() > 3) {
+        Malfunctions answer = repository.existsUser(malfunctions.getHelperId());
+        //если этот пользователь сегодня уже отправлял эту ошибку, то в базу ее не сохраняем
+        if (answer == null) {
+            List<Malfunctions> malfunctionsList = repository.existsAnswer(malfunctions.getType().name(), malfunctions.getCar().getCarNumber(), malfunctions.getCar().getCarRegion());
+            //если такого рода ошибок в день уже было 3, то так же в бд не сохраняем
+            if (malfunctionsList.size() >= 3) {
                 return malfunctions;
             } else {
                 return repository.save(malfunctions);

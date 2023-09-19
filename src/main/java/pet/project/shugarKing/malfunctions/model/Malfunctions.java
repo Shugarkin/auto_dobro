@@ -38,6 +38,7 @@ public class Malfunctions {
 
     //что именно сломалось
     @Column(name = "malfunctions")
+    @Enumerated(EnumType.STRING)
     private AllMalfunction malfunction;
 
     //машина у которой поломка
