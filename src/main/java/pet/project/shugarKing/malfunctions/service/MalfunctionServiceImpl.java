@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pet.project.shugarKing.blackList.service.BlackListService;
 import pet.project.shugarKing.car.dao.CarRepository;
 import pet.project.shugarKing.car.model.Car;
 import pet.project.shugarKing.exceptions.ConflictException;
@@ -29,6 +30,8 @@ public class MalfunctionServiceImpl implements MalfunctionService {
 
     private final UserRepository userRepository;
 
+    private final BlackListService blackListService;
+
     @Transactional
     @Override
     public Malfunctions createMalfunction(long userId, CarNumber carNumber, Malfunctions malfunction) {
@@ -41,6 +44,9 @@ public class MalfunctionServiceImpl implements MalfunctionService {
         malfunction.setCreateOn(LocalDateTime.now());
         malfunction.setCar(car);
         malfunction.setHelperId(userId);
+
+        boolean check = blackListService.check(malfunction.getCar().getUser().getId(), malfunction.getHelperId());
+        if(check) return malfunction;
 
         return check(malfunction);
     }
@@ -91,7 +97,7 @@ public class MalfunctionServiceImpl implements MalfunctionService {
         if (answer == null) {
             List<Malfunctions> malfunctionsList = repository.existsAnswer(malfunctions.getType().name(), malfunctions.getCar().getCarNumber(), malfunctions.getCar().getCarRegion());
             //если такого рода ошибок в день уже было 3, то так же в бд не сохраняем
-            if (malfunctionsList.size() >= 3) {
+            if (malfunctionsList.size() == 3) {
                 return malfunctions;
             } else {
                 return repository.save(malfunctions);
