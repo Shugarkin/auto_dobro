@@ -2,6 +2,8 @@ package pet.project.shugarKing.blackList.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pet.project.shugarKing.blackList.dto.BlackListDto;
+import pet.project.shugarKing.blackList.mapper.BlackListMapper;
 import pet.project.shugarKing.blackList.model.BlackList;
 import pet.project.shugarKing.blackList.service.BlackListService;
 
@@ -15,9 +17,9 @@ public class BlackListController {
     private final BlackListService service;
 
     @PostMapping
-    public BlackList createBlock(@RequestBody BlackList blackList) {
-        BlackList block = service.createBlock(blackList);
-        return block;
+    public BlackListDto createBlock(@RequestBody BlackListDto blackList) {
+        BlackList block = service.createBlock(BlackListMapper.toBlackList(blackList));
+        return BlackListMapper.toBlackListDto(block);
     }
 
     @DeleteMapping("/{userId}/unBlock/{bookedId}")
@@ -26,9 +28,9 @@ public class BlackListController {
     }
 
     @GetMapping("/{userId}")
-    public List<BlackList> getList(@PathVariable long userId) {
+    public List<BlackListDto> getList(@PathVariable long userId) {
         List<BlackList> list = service.getList(userId);
-        return list;
+        return BlackListMapper.toListBlackListDto(list);
     }
 
 }

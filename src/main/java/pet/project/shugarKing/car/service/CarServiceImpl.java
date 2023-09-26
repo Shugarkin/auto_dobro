@@ -31,7 +31,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> getCarsFromUserId(long userId) {
-        //проверить есть ли пользователь вообще
+        if (!userRepository.existsById(userId)) throw new ConflictException("Пользователь не найден");
         List<Car> list = repository.findAllByUserId(userId);
         return list;
     }
