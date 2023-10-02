@@ -35,7 +35,7 @@ public class MalfunctionServiceImpl implements MalfunctionService {
     @Transactional
     @Override
     public Malfunctions createMalfunction(long userId, CarNumber carNumber, Malfunctions malfunction) {
-        Car car = carRepository.findByCarNumberAndCarRegion(carNumber.getCarNumber(), carNumber.getCarRegion())
+        Car car = carRepository.findByCarNumberAndCarRegion(carNumber.getCarNumber().toLowerCase(), carNumber.getCarRegion())
                 .orElseThrow(() -> new NotFoundException("Транспорта с таким номером нет"));
 
         if (!userRepository.existsById(userId) || car.getUser().getId() == userId)

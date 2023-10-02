@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = CheckNumberValidator.class)
 public @interface CarNumberValidAnnotation {
 
-    String message() default "Не правильный номер транспорта";
+    String message() default "Не правильный номер транспорта. На номерах территории РФ разрешены 12 букв кириллицы. ";
 
     Class<?>[] groups() default {};
 

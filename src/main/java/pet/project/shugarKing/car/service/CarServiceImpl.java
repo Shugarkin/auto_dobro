@@ -54,13 +54,13 @@ public class CarServiceImpl implements CarService {
 
         if (repository.existsByCarNumberAndCarRegion(car.getCarNumber(), car.getCarRegion()))
             throw new ConflictException("Такой транспорт уже существует. ");
-
+        car.setCarNumber(car.getCarNumber().toLowerCase());
         car.setUser(user);
     }
 
 
     private Car getCar(long userId, String carNumberFull) {
-        String carNumber = carNumberFull.substring(0, 6);
+        String carNumber = carNumberFull.substring(0, 6).toLowerCase();
         int carRegion = Integer.parseInt(carNumberFull.substring(6));
         Car car = repository.findByCarNumberAndCarRegion(carNumber, carRegion)
                 .orElseThrow(() -> new NotFoundException("Транспорт не найден"));

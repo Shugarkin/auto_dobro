@@ -24,10 +24,10 @@ public class CheckNumberValidator implements ConstraintValidator<CarNumberValidA
         int carRegion = newCarDto.getCarRegion();
         if (carNumber == null || carRegion == 0) return false;
 
-        Pattern patternNumber = Pattern.compile("^[АВЕКМНОРСТУХABEKMHOPCTYX]{1}\\d{3}[АВЕКМНОРСТУХABEKMHOPCTYX]{2}$");
+        // Pattern patternNumber = Pattern.compile("^[АВЕКМНОРСТУХABEKMHOPCTYX]{1}\\d{3}[АВЕКМНОРСТУХABEKMHOPCTYX]{2}$"); латинский и кириллица
+         Pattern patternNumber = Pattern.compile("^[АВЕКМНОРСТУХавекмнорстух]{1}\\d{3}[АВЕКМНОРСТУХавекмнорстух]{2}$");
         Matcher matcherNumber = patternNumber.matcher(carNumber);
-        boolean answer = matcherNumber.matches(); //весьма странное поведение. посмотри
         if (!matcherNumber.matches()) return false;
-        return carRegion > 0 && carRegion < 100 && carRegion != 20 && regionList.contains(carRegion);
+        return (carRegion > 0 && carRegion < 100 && carRegion != 20) || regionList.contains(carRegion);
     }
 }
