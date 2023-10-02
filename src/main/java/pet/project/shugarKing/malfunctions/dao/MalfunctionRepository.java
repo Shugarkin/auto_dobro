@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import pet.project.shugarKing.malfunctions.model.Malfunctions;
 import org.springframework.data.domain.Pageable;
+import pet.project.shugarKing.users.model.User;
 
 import java.util.List;
 
@@ -27,6 +28,6 @@ public interface MalfunctionRepository extends JpaRepository<Malfunctions, Long>
     @Query(value = "select mal " +
             "from Malfunctions mal " +
             "where mal.createOn > (current_timestamp() - 1) " +
-            "and mal.helperId = ?1 ")
-    Malfunctions existsUser(long helperId);
+            "and mal.helper = ?1 ")
+    Malfunctions existsUser(User helperId);
 }

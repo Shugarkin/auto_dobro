@@ -8,6 +8,7 @@ import lombok.Setter;
 import pet.project.shugarKing.car.model.Car;
 import pet.project.shugarKing.malfunctions.type.AllMalfunction;
 import pet.project.shugarKing.malfunctions.type.MalfunctionType;
+import pet.project.shugarKing.users.model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -46,16 +47,17 @@ public class Malfunctions {
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @Column(name = "helper")
-    private long helperId;
+    @ManyToOne
+    @JoinColumn(name = "helper")
+    private User helper;
 
 
-    public Malfunctions(long id, MalfunctionType type, LocalDateTime createOn, AllMalfunction malfunction, Car car, long helperId) {
+    public Malfunctions(long id, MalfunctionType type, LocalDateTime createOn, AllMalfunction malfunction, Car car, User helper) {
         this.id = id;
         this.type = type;
         this.createOn = createOn;
         this.malfunction = malfunction;
         this.car = car;
-        this.helperId = helperId;
+        this.helper = helper;
     }
 }
