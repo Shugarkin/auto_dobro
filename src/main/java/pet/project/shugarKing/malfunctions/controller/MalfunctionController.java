@@ -1,5 +1,6 @@
 package pet.project.shugarKing.malfunctions.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class MalfunctionController {
     public final MalfunctionService service;
 
     @PostMapping
-    public MalfunctionResponseDto createMalfunction(@PathVariable long userId, @RequestBody NewMalfunctionDto newMalfunctionDto) {
+    public MalfunctionResponseDto createMalfunction(@PathVariable long userId, @Valid @RequestBody NewMalfunctionDto newMalfunctionDto) {
         Malfunctions malfunctions = service.createMalfunction(userId, newMalfunctionDto.getCarNumber(),
                 MalfunctionMapper.toMalfunction(newMalfunctionDto.getMal()));
         return MalfunctionMapper.toMalfunctionResponseDto(malfunctions);

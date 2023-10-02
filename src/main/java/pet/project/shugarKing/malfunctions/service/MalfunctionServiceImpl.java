@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pet.project.shugarKing.blackList.service.BlackListService;
 import pet.project.shugarKing.car.dao.CarRepository;
+import pet.project.shugarKing.car.dto.NewCarDto;
 import pet.project.shugarKing.car.model.Car;
 import pet.project.shugarKing.exceptions.ConflictException;
 import pet.project.shugarKing.exceptions.NotFoundException;
 import pet.project.shugarKing.malfunctions.dao.MalfunctionRepository;
-import pet.project.shugarKing.malfunctions.dto.CarNumber;
 import pet.project.shugarKing.malfunctions.model.Malfunctions;
 import pet.project.shugarKing.users.dao.UserRepository;
 
@@ -34,7 +34,7 @@ public class MalfunctionServiceImpl implements MalfunctionService {
 
     @Transactional
     @Override
-    public Malfunctions createMalfunction(long userId, CarNumber carNumber, Malfunctions malfunction) {
+    public Malfunctions createMalfunction(long userId, NewCarDto carNumber, Malfunctions malfunction) {
         Car car = carRepository.findByCarNumberAndCarRegion(carNumber.getCarNumber().toLowerCase(), carNumber.getCarRegion())
                 .orElseThrow(() -> new NotFoundException("Транспорта с таким номером нет"));
 

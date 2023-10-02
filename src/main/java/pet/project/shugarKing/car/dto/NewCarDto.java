@@ -11,9 +11,6 @@ import pet.project.shugarKing.car.valid.CarNumberValidAnnotation;
 @CarNumberValidAnnotation
 public class NewCarDto {
 
-
-    //написать аннотацию для валидации номера
-
     @NotBlank
     private String carNumber;
 
