@@ -27,12 +27,36 @@ public class LikeVaultServiceImpl implements LikeVaultService {
     @Override
     public Like createLike(long liker, long malId) {
 
+        //валидация на один лайк одномк человеку и от одного. exist()
+
+        Like like = check(liker, malId);
+
+        return repository.save(like);
+    }
+
+    @Transactional
+    @Override
+    public String deleteLike(long liker, long malId) {
+
+        Like like =  check(liker, malId);
+        //не нравится этп реализация. надо поменять
+        repository.deleteByLikerIdAndLikeOwnerId(like.getLiker().getId(), like.getLikeOwner().getId());
+        return "Лайк удален";
+    }
+
+    @Override
+    public Like getLike(long liker, long likeId) {
+        return repository.findById(likeId).get();
+    }
+
+
+    private Like check(long liker, long malId) {
         Malfunctions malfunctions = malfunctionRepository.findById(malId).orElseThrow(() -> new NotFoundException("Неисправность не найдена."));
 
         if (liker != malfunctions.getCar().getUser().getId()) throw new ConflictException("Вы не можете лайкать то, чтовам не приходило.");
-        Like like = Like.builder()
+
+        return Like.builder()
                 .liker(malfunctions.getCar().getUser())
                 .likeOwner(malfunctions.getHelper()).build();
-        return repository.save(like);
     }
 }

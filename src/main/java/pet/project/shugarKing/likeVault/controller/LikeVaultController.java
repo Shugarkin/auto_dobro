@@ -2,10 +2,7 @@ package pet.project.shugarKing.likeVault.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pet.project.shugarKing.likeVault.model.Like;
 import pet.project.shugarKing.likeVault.service.LikeVaultService;
 
@@ -21,5 +18,15 @@ public class LikeVaultController {
     public Like createLike(@PathVariable(name = "userId") long liker, @PathVariable long malId) {
         Like like = service.createLike(liker, malId);
         return like;
+    }
+
+    @DeleteMapping("/{malId}")
+    public String deleteLike(@PathVariable(name = "userId") long liker, @PathVariable long malId) {
+        return service.deleteLike(liker, malId);
+    }
+
+    @GetMapping("/{likeId}")
+    public Like getLike(@PathVariable(name = "userId") long liker, @PathVariable long likeId) {
+        return service.getLike(liker, likeId);
     }
 }
