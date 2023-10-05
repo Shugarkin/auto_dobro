@@ -3,6 +3,7 @@ package pet.project.shugarKing.users.controller;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class UserController {
 
     @GetMapping
     public List<UserDto> getUsers() {
-        List<User> list = service.getUsers();
+        Page<User> list = service.getUsers();
         return UserMapper.toListUserDto(list);
     }
 

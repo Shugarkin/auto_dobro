@@ -1,6 +1,7 @@
 package pet.project.shugarKing.users.mapper;
 
 import lombok.experimental.UtilityClass;
+import org.springframework.data.domain.Page;
 import pet.project.shugarKing.users.dto.NewUserDto;
 import pet.project.shugarKing.users.dto.UpdateUserDto;
 import pet.project.shugarKing.users.dto.UserDto;
@@ -23,7 +24,7 @@ public class UserMapper {
                 .build();
     }
 
-    public List<UserDto> toListUserDto(List<User> list) {
+    public List<UserDto> toListUserDto(Page<User> list) {
         return list.stream().map(UserMapper::toUserDto).collect(Collectors.toList());
     }
 

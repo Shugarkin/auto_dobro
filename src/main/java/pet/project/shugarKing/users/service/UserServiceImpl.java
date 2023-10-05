@@ -1,6 +1,7 @@
 package pet.project.shugarKing.users.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUsers() {
-
-        return repository.findAll();
+    public Page<User> getUsers() {
+        Pageable pageable = PageRequest.of(0, 10);
+        return repository.findAll(pageable);
     }
 
     @Transactional
