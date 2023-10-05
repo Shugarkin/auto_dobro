@@ -22,7 +22,6 @@ public class User {
     @Column(name = "nick_Name")
     private String nickName;
 
-    //имя пользователя
     @Column(name = "first_Name")
     private String firstName ;
 
@@ -31,6 +30,7 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
 
 
     public User(long id, String nickName, String firstName, String lastName, String email) {

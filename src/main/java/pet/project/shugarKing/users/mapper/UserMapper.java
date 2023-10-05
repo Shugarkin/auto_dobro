@@ -41,4 +41,5 @@ public class UserMapper {
                 .nickName(newUserDto.getNickName())
                 .build();
     }
+
 }

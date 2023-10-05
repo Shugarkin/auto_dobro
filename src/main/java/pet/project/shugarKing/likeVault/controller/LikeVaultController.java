@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import pet.project.shugarKing.likeVault.model.Like;
 import pet.project.shugarKing.likeVault.service.LikeVaultService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Validated
@@ -28,5 +30,10 @@ public class LikeVaultController {
     @GetMapping("/{likeId}")
     public Like getLike(@PathVariable(name = "userId") long liker, @PathVariable long likeId) {
         return service.getLike(liker, likeId);
+    }
+
+    @GetMapping()
+    public List<Like> getAllLikes(@PathVariable long userId) {
+        return service.getAllLikes(userId);
     }
 }

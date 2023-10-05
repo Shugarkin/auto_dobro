@@ -35,7 +35,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(long userId) {
-        return repository.findById(userId).orElseThrow(() -> new NotFoundException("Пользователь для удаления не найден."));
+        User user = repository.findById(userId).orElseThrow(() -> new NotFoundException("Пользователь для удаления не найден."));
+        return user;
     }
 
     //изменить email нельзя
