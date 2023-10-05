@@ -3,6 +3,8 @@ package pet.project.shugarKing.likeVault.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pet.project.shugarKing.likeVault.dto.LikeDto;
+import pet.project.shugarKing.likeVault.mapper.LikeMapper;
 import pet.project.shugarKing.likeVault.model.Like;
 import pet.project.shugarKing.likeVault.service.LikeVaultService;
 
@@ -17,9 +19,8 @@ public class LikeVaultController {
     private final LikeVaultService service;
 
     @PostMapping("/{malId}")
-    public Like createLike(@PathVariable(name = "userId") long liker, @PathVariable long malId) {
-        Like like = service.createLike(liker, malId);
-        return like;
+    public LikeDto createLike(@PathVariable(name = "userId") long liker, @PathVariable long malId) {
+        return LikeMapper.toLikeDto(service.createLike(liker, malId));
     }
 
     @DeleteMapping("/{malId}")
@@ -28,12 +29,12 @@ public class LikeVaultController {
     }
 
     @GetMapping("/{likeId}")
-    public Like getLike(@PathVariable(name = "userId") long liker, @PathVariable long likeId) {
-        return service.getLike(liker, likeId);
+    public LikeDto getLike(@PathVariable(name = "userId") long liker, @PathVariable long likeId) {
+        return LikeMapper.toLikeDto(service.getLike(liker, likeId));
     }
 
     @GetMapping()
-    public List<Like> getAllLikes(@PathVariable long userId) {
-        return service.getAllLikes(userId);
+    public List<LikeDto> getAllLikes(@PathVariable long userId) {
+        return LikeMapper.toListLike(service.getAllLikes(userId));
     }
 }
