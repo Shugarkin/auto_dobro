@@ -4,7 +4,9 @@ import lombok.experimental.UtilityClass;
 import pet.project.shugarKing.users.dto.NewUserDto;
 import pet.project.shugarKing.users.dto.UpdateUserDto;
 import pet.project.shugarKing.users.dto.UserDto;
+import pet.project.shugarKing.users.dto.UserWithLikesDto;
 import pet.project.shugarKing.users.model.User;
+import pet.project.shugarKing.users.model.UserWithLikes;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,4 +44,13 @@ public class UserMapper {
                 .build();
     }
 
+    public UserWithLikesDto toUserWithLikesDto(UserWithLikes user) {
+        return UserWithLikesDto.builder()
+                .likes(user.getLikes())
+                .nickName(user.getNickName())
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .build();
+    }
 }

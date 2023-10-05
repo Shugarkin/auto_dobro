@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import pet.project.shugarKing.users.dto.NewUserDto;
 import pet.project.shugarKing.users.dto.UpdateUserDto;
 import pet.project.shugarKing.users.dto.UserDto;
+import pet.project.shugarKing.users.dto.UserWithLikesDto;
 import pet.project.shugarKing.users.mapper.UserMapper;
 import pet.project.shugarKing.users.model.User;
+import pet.project.shugarKing.users.model.UserWithLikes;
 import pet.project.shugarKing.users.service.UserService;
 
 import java.util.List;
@@ -44,9 +46,9 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public UserDto getUserById(@PathVariable @Positive long userId) {
-        User user = service.getUserById(userId);
-        return UserMapper.toUserDto(user);
+    public UserWithLikesDto getUserById(@PathVariable @Positive long userId) {
+        UserWithLikes user = service.getUserById(userId);
+        return UserMapper.toUserWithLikesDto(user);
     }
 
     @PutMapping("/{userId}")

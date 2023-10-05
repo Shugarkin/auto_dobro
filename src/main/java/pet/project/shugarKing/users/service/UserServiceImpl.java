@@ -1,11 +1,14 @@
 package pet.project.shugarKing.users.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pet.project.shugarKing.exceptions.NotFoundException;
 import pet.project.shugarKing.users.dao.UserRepository;
 import pet.project.shugarKing.users.model.User;
+import pet.project.shugarKing.users.model.UserWithLikes;
 
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getUsers() {
+
         return repository.findAll();
     }
 
@@ -34,9 +38,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(long userId) {
-        User user = repository.findById(userId).orElseThrow(() -> new NotFoundException("Пользователь для удаления не найден."));
-        return user;
+    public UserWithLikes getUserById(long userId) {
+        UserWithLikes userWithLikes = repository.findUserwithLikes(userId).orElseThrow(() -> new NotFoundException("Пользователь для удаления не найден."));
+        return userWithLikes;
     }
 
     //изменить email нельзя

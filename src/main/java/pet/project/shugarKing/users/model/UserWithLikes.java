@@ -1,11 +1,11 @@
-package pet.project.shugarKing.users.dto;
+package pet.project.shugarKing.users.model;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class UserWithLikesDto {
+public class UserWithLikes {
 
     private long id;
 
@@ -15,5 +15,8 @@ public class UserWithLikesDto {
 
     private String lastName;
 
+    private String email;
+
     private long likes;
+
 }
