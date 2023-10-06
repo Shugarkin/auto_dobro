@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 public class LikeMapper {
     public LikeDto toLikeDto(Like like) {
         return LikeDto.builder()
-                .id(like.getId())
                 .likeOwner(like.getLikeOwner().getId())
                 .liker(like.getLiker().getId())
                 .build();

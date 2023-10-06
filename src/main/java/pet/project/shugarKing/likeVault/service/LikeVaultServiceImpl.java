@@ -36,7 +36,7 @@ public class LikeVaultServiceImpl implements LikeVaultService {
     @Transactional
     @Override
     public String deleteLike(long liker, long malId) {
-        Like like =  check(liker, malId);
+        Like like = check(liker, malId);
         repository.deleteByLikerIdAndLikeOwnerId(like.getLiker().getId(), like.getLikeOwner().getId());
         return "Лайк удален";
     }
@@ -52,7 +52,7 @@ public class LikeVaultServiceImpl implements LikeVaultService {
     }
 
 
-    //????????????????????
+    //пока не понятно нужен ли метод
     @Override
     public long getLikesFromUser(long likeOwner) {
         long count = repository.countByLikeOwnerId(likeOwner);

@@ -7,8 +7,6 @@ import lombok.Data;
 @Builder
 public class LikeDto {
 
-    private long id;
-
     private long liker;
 
     private long likeOwner;
