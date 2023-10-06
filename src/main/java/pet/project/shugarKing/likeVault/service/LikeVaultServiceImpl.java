@@ -9,7 +9,6 @@ import pet.project.shugarKing.likeVault.dao.LikeVaultRepository;
 import pet.project.shugarKing.likeVault.model.Like;
 import pet.project.shugarKing.malfunctions.dao.MalfunctionRepository;
 import pet.project.shugarKing.malfunctions.model.Malfunctions;
-import pet.project.shugarKing.users.dao.UserRepository;
 
 import java.util.List;
 
@@ -19,8 +18,6 @@ import java.util.List;
 public class LikeVaultServiceImpl implements LikeVaultService {
 
     private final LikeVaultRepository repository;
-
-    private final UserRepository userRepository;
 
     private final MalfunctionRepository malfunctionRepository;
 
