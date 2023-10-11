@@ -1,10 +1,7 @@
 package pet.project.shugarKing.blackList.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "black_list")
@@ -12,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Builder
+@AllArgsConstructor
 public class BlackList {
 
     @Id
@@ -25,9 +23,4 @@ public class BlackList {
     @Column(name = "booked_id")
     private long bookedId;
 
-    public BlackList(long id, long userId, long bookedId) {
-        this.id = id;
-        this.userId = userId;
-        this.bookedId = bookedId;
-    }
 }

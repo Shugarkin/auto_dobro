@@ -97,9 +97,9 @@ public class MalfunctionServiceImpl implements MalfunctionService {
         Malfunctions answer = repository.existsUser(malfunctions.getHelper());
         //если этот пользователь сегодня уже отправлял эту ошибку, то в базу ее не сохраняем
         if (answer == null) {
-            List<Malfunctions> malfunctionsList = repository.existsAnswer(malfunctions.getType().name(), malfunctions.getCar().getCarNumber(), malfunctions.getCar().getCarRegion());
+            int count = repository.existsAnswer(malfunctions.getType().name(), malfunctions.getCar().getCarNumber(), malfunctions.getCar().getCarRegion());
             //если такого рода ошибок в день уже было 3, то так же в бд не сохраняем
-            if (malfunctionsList.size() == 3) {
+            if (count == 3) {
                 return malfunctions;
             } else {
                 return repository.save(malfunctions);

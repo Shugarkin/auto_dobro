@@ -14,7 +14,7 @@ public interface MalfunctionRepository extends JpaRepository<Malfunctions, Long>
     void deleteAllByCarUserId(long userId);
 
 
-    @Query(value = "select m.id, m.type_malfunctions, m.create_on, m.malfunctions, m.car_id, m.helper " +
+    @Query(value = "select count(*) " +
             "from malfunctions m  " +
             "join cars c on c.id = m.car_id  " +
             "where m.create_on > (localtimestamp - 1 )  " +
@@ -22,7 +22,7 @@ public interface MalfunctionRepository extends JpaRepository<Malfunctions, Long>
             "and c.car_number = ?  " +
             "and c.car_region = ? " +
             "limit 3 ", nativeQuery = true )
-    List<Malfunctions> existsAnswer(String type, String carNumber, int carRegion);
+    int existsAnswer(String type, String carNumber, int carRegion);
 
 
     @Query(value = "select mal " +
